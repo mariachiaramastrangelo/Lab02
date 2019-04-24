@@ -7,8 +7,8 @@ package it.polito.tdp.alien;
 
 
 import java.net.URL;
-import java.util.ResourceBundle;
 
+import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,7 +29,8 @@ public class AlienController {
     private Button btnTranslate;
     @FXML
     private Button btnReset;
-        
+    
+   private AlienDictionary dizionario= new AlienDictionary();
     
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -43,13 +44,22 @@ public class AlienController {
     
     @FXML
     void doTranslate(ActionEvent event) {
-    	    	
-    }
-    
+    	String w[]= this.txtWord.getText().split(" ");
+    	
+    	if(w.length==1) {
+    		this.txtResult.appendText(dizionario.translateWord(w[0])+"\n");
+    		this.txtWord.clear();
+    	 }else {
+    		 dizionario.addWord(w[0], w[1]);
+    		 this.txtResult.appendText("parola aggiunta correttamente\n");
+    		 this.txtWord.clear();
+    	 }
+    } 
+     
     
     @FXML
     void doReset(ActionEvent event) {
-
+    	this.txtResult.clear();
     }
     
 }
